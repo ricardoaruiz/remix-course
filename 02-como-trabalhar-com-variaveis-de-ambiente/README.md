@@ -22,7 +22,7 @@ npm i zod
 
 #### Utilizar a função **"getEnv"** criada no arquivo **"env.server.ts"** atribuindo seu retorno a **"global.ENV"** conforme o exemplo acima.
 
-### 4 - Expor as variáveis que necessitam de acesso no Client (Browser)
+### 4 - Expor as variáveis que necessitam de acesso no Client (Browser) [documentação](https://remix.run/docs/en/1.14.3/guides/envvars#browser-environment-variables)
 
 ![entry.server file](documentation/rootFile.png)
 
