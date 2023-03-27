@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import bcrypt from 'bcryptjs'
 import { db } from "~/db"
 
 /**
@@ -18,7 +19,10 @@ type UserInput = z.infer<typeof schema>;
  * @param data 
  */
 export const saveUser = async (data:  UserInput) => {
-  await db.user.create({ data })
+  await db.user.create({ data: {
+    ...data,
+    password: await bcrypt.hash('123456', 10),
+  } })
 }
 
 /**
