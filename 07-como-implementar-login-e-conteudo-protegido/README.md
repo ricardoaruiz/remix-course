@@ -1,30 +1,34 @@
-# Organização do Projeto
+# Autenticação e conteúdo protegido
 
-## Este projeto tem o objetivo de mostrar como pode ser feita a organização de um projeto Remix
+## Este projeto tem o objetivo de mostrar como realizar autenticação e permitir acesso a conteúdos somente se estiver autenticado
 
-## Pegaremos o projeto "05-como-salvar-input-usuario-complexo" como base para reorganizar o projeto
+## Pegaremos o projeto "06-como-cuidar-da-organizacao-do-projeto" como base para nossa implementação
 
-## 1 - Pasta **"components"**
+## 1 - Adicionar uma nova coluna na tabela **"User"**
 
-- ### Utilizada para componentes mais genéricos que podem ser utilizados em diversas features.
+![auth-01.png](documentation/auth-01.png)
 
-  - ### Ex: Botão, Input e etc
+## 2 - Rodar o comando para alterar o banco de dados
 
-    ![reorganizacao-00.png](documentation/reorganizacao-00.png)
+### Como a nova coluna que estamos inserindo não é opcional, o prisma vai dar uma mensagem informando que se ele continuar toda a tabela será removida e criada novamente do zero.
 
-## 2 - Pasta **features**
+```sh
+  npm run db:push
+```
 
-- ### Utilizada para componentes e outros arquivos que são diretamente ligados a uma funcionalidade da aplicação.
+## 3 - Vamos instalar uma lib para realizar a criptografia das senhas
 
-  - ### Ex: UsersForm, UsersTable e etc
+```sh
+  npm i bcrypt
+  npm i -D @types/bcrypt
+```
 
-    ![reorganizacao-01.png](documentation/reorganizacao-01.png)
+## 4 - Agora vamos ajustar o arquivo **"prisma/seed.ts"** para inserir o novo campo "password" definindo uma senha padrão.
 
-  - ### Nesse caso aqui também podemos criar o arquivo **"users.api.ts"** que centralizará todo acesso ao banco de dados com a utilização do prisma, evitando que os componentes de feature **UsersForm** e **UsersForm** conheçam o **Prisma**
+![auth-02.png](documentation/auth-02.png)
 
-## 3 Na pasta **"app"** procurar deixar somente os arquivos do Remix que seriam **"root"**, **"entry.server"** e **"entry.client"** (esses últimos se houver). Para isso vamos criar as seguintes pastas:
+### Agora vamos rodar o arquivo **"seed.ts"** para gerar os novos dados em nossa tabela
 
-- ### **"db"** que terá as configurações do Prisma
-- ### **"remix-forms"** que terá as configurações do remix-forms.
-
-  ![reorganizacao-02.png](documentation/reorganizacao-02.png)
+```sh
+  npm db:seed
+```
