@@ -4,6 +4,7 @@ import { useLoaderData } from "@remix-run/react"
 import { UsersTable } from "~/features/Users"
 import { ErrorFeedback } from "~/components"
 import { getUsers } from "~/features/Users/users.api"
+import { getLoggedUser } from "~/session.server"
 
 /**
  * Loader function (server side)
@@ -11,6 +12,7 @@ import { getUsers } from "~/features/Users/users.api"
  * @returns Users
  */
 export async function loader({ request }: LoaderArgs) {
+  await getLoggedUser(request)
   return json(await getUsers())
 };
 

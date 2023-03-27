@@ -18,6 +18,8 @@ const mutation = makeDomainFunction(schema)(async (data) => {
  * @returns 
  */
 export const action = async ({ request }: ActionArgs) =>
+
+  // https://remix-forms.seasoned.cc/examples/actions/redirect
   formAction({
     request,
     schema,

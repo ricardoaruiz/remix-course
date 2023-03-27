@@ -2,6 +2,12 @@
 
 ## Este projeto tem o objetivo de mostrar como realizar autenticação e permitir acesso a conteúdos somente se estiver autenticado
 
+## Libis utilizadas
+
+- https://remix-forms.seasoned.cc/
+- https://www.npmjs.com/package/bcryptjs
+- https://fakerjs.dev/
+
 ## Pegaremos o projeto "06-como-cuidar-da-organizacao-do-projeto" como base para nossa implementação
 
 ## 1 - Adicionar uma nova coluna na tabela **"User"**
@@ -42,3 +48,23 @@
 #### Na rota **"app/routes/login"** vamos chamar função **"login"** criada acima na função **"mutation"**
 
 ![auth-04.png](documentation/auth-04.png)
+
+## 6 - Criação de sessão e proteção de rotas.
+
+### A [documentação](https://remix.run/docs/en/1.14.3/utils/sessions) do Remix propõe a implementação de um arquivo **"session.server.ts"** na pasta **"app"** para tratar a questão de criação/remoção de sessão.
+
+- ### Criar o arquivo **"session.server.ts"**
+
+![auth-05.png](documentation/auth-05.png)
+
+- ### No arquivo **"app/routes/login.tsx"** na **action** fazer a chamada ao método **createSession** criado acima.
+
+![auth-06.png](documentation/auth-06.png)
+
+- ### No arquivo **"app/routes/users.tsx"** no **loader** fazer a chamada ao método **getLoggedUser** criado acima para validar se a sessão foi criada.
+
+![auth-07.png](documentation/auth-07.png)
+
+- ### criar o arquivo **"app/routes/logout.tsx"** para remover a sessão criada
+
+![auth-08.png](documentation/auth-08.png)

@@ -1,12 +1,14 @@
 import type { ActionArgs, LinksFunction } from "@remix-run/node";
-import { performMutation } from "remix-forms";
 
 import { makeDomainFunction } from 'domain-functions'
+import { performMutation } from "remix-forms";
 
 import { Form } from "~/remix-forms"
+import { createSession } from "~/session.server";
+
+import { login, loginInputSchema, type LoginInput } from "~/features/Auth";
 
 import formsStyles from '~/styles/forms.css'
-import { login, loginInputSchema, type LoginInput } from "~/features/Auth";
 
 /**
  * Form initial values
@@ -41,17 +43,23 @@ const mutation = makeDomainFunction(loginInputSchema)(async (values) => {
  * @returns login data
  */
 export const action = async ({ request }: ActionArgs) => {
-  const results = await performMutation({
+
+  //https://remix-forms.seasoned.cc/examples/actions/custom-response
+  const result = await performMutation({
     request,
     schema: loginInputSchema,
     mutation
   })
 
-  console.log("🚀 ~ file: login.tsx:48 ~ action ~ results:", results)  
+  // If has validation errors, return result to render on view
+  if (!result.success) {
+    return result
+  }
 
-  return results
+  // Create new session
+  return createSession(request, String(result.data.id))
 }
-  
+
 /**
  * View
  * @returns JSX
@@ -64,7 +72,7 @@ export default function () {
         values={values}
         className="custom-form" 
       >
-        {({ Field, Errors, Button, register }) => (
+        {({ Field, Errors, Button }) => (
           <>
             <Field name="email" autoFocus />
             <Field name="password" type="password" />
@@ -77,4 +85,3 @@ export default function () {
     </div>
   )
 }
-
