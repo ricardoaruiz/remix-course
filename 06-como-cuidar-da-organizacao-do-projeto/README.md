@@ -25,6 +25,6 @@
 ## 3 Na pasta **"app"** procurar deixar somente os arquivos do Remix que seriam **"root"**, **"entry.server"** e **"entry.client"** (esses últimos se houver). Para isso vamos criar as seguintes pastas:
 
 - ### **"db"** que terá as configurações do Prisma
-- ### **"remix-forms"** que terá as configurações do remix-forms
+- ### **"remix-forms"** que terá as configurações do remix-forms.
 
   ![reorganizacao-02.png](documentation/reorganizacao-02.png)
