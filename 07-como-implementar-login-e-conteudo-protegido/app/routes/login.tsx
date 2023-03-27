@@ -1,32 +1,18 @@
 import type { ActionArgs, LinksFunction } from "@remix-run/node";
 import { performMutation } from "remix-forms";
 
-import { z } from "zod"
 import { makeDomainFunction } from 'domain-functions'
 
 import { Form } from "~/remix-forms"
 
 import formsStyles from '~/styles/forms.css'
-
-/**
- * Validate form schema
- * https://remix-forms.seasoned.cc/get-started#:~:text=%7B%20Form%20%7D-,Write%20your%20schema,-Compose%20a%20zod
- */
-const loginInputSchema = z.object({
-  email: z.string().min(1, { message: 'Required field' }).email({ message: 'Invalid e-mail' }).trim(),
-  password: z.string().min(1, { message: 'Required field' })
-})
-
-/**
- * Form type
- */
-type LoginInput = z.infer<typeof loginInputSchema>
+import { login, loginInputSchema, type LoginInput } from "~/features/Auth";
 
 /**
  * Form initial values
  */
 const values: LoginInput = {
-  email: 'Lindsey41@hotmail.com',
+  email: 'Morris41@hotmail.com',
   password: '123456'
 }
 
@@ -45,7 +31,7 @@ export const links: LinksFunction = () => {
  * https://remix-forms.seasoned.cc/get-started#:~:text=Create%20your%20mutation
  */
 const mutation = makeDomainFunction(loginInputSchema)(async (values) => {
-  return values;
+  return login(values);
 })
 
 

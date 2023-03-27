@@ -19,8 +19,8 @@
 ## 3 - Vamos instalar uma lib para realizar a criptografia das senhas
 
 ```sh
-  npm i bcrypt
-  npm i -D @types/bcrypt
+  npm i bcryptjs
+  npm i -D @types/bcryptjs
 ```
 
 ## 4 - Agora vamos ajustar o arquivo **"prisma/seed.ts"** para inserir o novo campo "password" definindo uma senha padrão.
@@ -32,3 +32,13 @@
 ```sh
   npm db:seed
 ```
+
+## 5 - Criar o **"auth.api.ts"** dentro da pasta **"app/features/Auth"** que fará o acesso a base de dados para validar os dados do usuário.
+
+#### Ao criar esse arquivo, vamos mover para ele o schema e o type relacionado ao schema removendo-os do arquivo da rota
+
+![auth-03.png](documentation/auth-03.png)
+
+#### Na rota **"app/routes/login"** vamos chamar função **"login"** criada acima na função **"mutation"**
+
+![auth-04.png](documentation/auth-04.png)
