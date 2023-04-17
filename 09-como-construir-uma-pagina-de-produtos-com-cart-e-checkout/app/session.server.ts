@@ -1,10 +1,12 @@
 // Documentation
 // https://remix.run/docs/en/1.14.3/utils/sessions
 
+import { type Product } from "@prisma/client";
 import { createCookieSessionStorage, redirect } from "@remix-run/node";
 
 type SessionData = {
   userId: string;
+  cartProducts: Product[];
 };
 
 type SessionFlashData = {
